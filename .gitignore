@@ -1,0 +1,17 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Orders/bin
+/Orders/obj
+/Orders/wwwroot/lib
+/Orders/wwwroot/js
+/Orders/wwwroot/css
+/.vs
+/Orders/Orders.csproj.user
+/Orders.Data/bin
+/Orders.Data/obj
+/Orders.Domain/bin
+/Orders.Domain/obj
+/Orders.Logic/bin
+/Orders.Logic/obj

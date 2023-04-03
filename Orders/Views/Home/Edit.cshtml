@@ -1,0 +1,58 @@
+﻿@using Orders.Logic.DTOs;
+@model EditViewModel
+
+@{
+    var items = (Model.Items ?? Enumerable.Empty<OrderItemDTO>()).ToList();
+}
+
+<p class="text-center">
+    <h1 class="display-4">Edit order</h1>
+    <form asp-action="Save">
+        <input type="hidden" asp-for="Order.Id" />
+        <p>
+            <label asp-for="Order.Number">Number:</label>
+            <input asp-for="Order.Number" />
+        </p>
+        <p>
+            <label asp-for="Order.Date">Date:</label>
+            <input asp-for="Order.Date" />
+        </p>
+        <p>
+            <label asp-for="Order.ProviderId">Provider:</label>
+            @Html.DropDownListFor(m => m.Order.ProviderId, new SelectList(Model.Providers, "Id", "Name", Model.Order.ProviderId))
+        </p>
+        <input type="submit" value="Save" class="btn btn-primary" />
+    <h2 class="display-4">Items</h2>
+        <table id="items" class="table table-bordered table-responsive table-hover">
+            <tr>
+                <th>Name</th>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th/>
+            </tr>
+            @for (int i = 0; i < items.Count; i++)
+            {
+                <tr id="Item-@items[i].Id">
+                    <td><input type="hidden" asp-for="@items[i].Id" class="form-control" /><input id="@items[i].Id" asp-for="@items[i].Name" class="form-control" /></td>
+                    <td><input id="@items[i].Id" asp-for="@items[i].Quantity" class="form-control" /></td>
+                    <td><input id="@items[i].Id" asp-for="@items[i].Unit" class="form-control" /></td>
+                    <td><button name="index" formaction="DeleteItem" class="btn btn-primary" value="@(i)">Delete</button></td>
+                </tr>
+            }
+            <tr>
+                <td contenteditable="true">
+                    <input asp-for="Name" class="form-control" />
+                </td>
+                <td>
+                    <input asp-for="Quantity" class="form-control" />
+                </td>
+                <td>
+                    <input asp-for="Unit" class="form-control" />
+                </td>
+                <td>
+                    <input type="submit" formaction="AddItem" class="btn btn-primary" value="Add" />
+                </td>
+            </tr>
+        </table>        
+    </form>
+</p>

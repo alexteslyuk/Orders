@@ -1,0 +1,45 @@
+﻿@model IndexViewModel
+
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<p class="text-center">
+    <p>
+        <a asp-action="Create" class="btn btn-primary">Add</a>
+    </p>
+    <form asp-action="Index">
+        <label asp-for="Numbers">Numbers:</label>
+        <p>
+            @Html.ListBoxFor(m => m.SelectedNumbers, new MultiSelectList(Model.Numbers, Model.SelectedNumbers))
+        </p>
+        <label asp-for="Providers">Providers:</label>
+        <p>            
+            @Html.ListBoxFor(m => m.SelectedProviders, new MultiSelectList(Model.Providers, "Id", "Name", Model.SelectedProviders))
+        </p>
+        <label asp-for="StartDate">Start date:</label>
+        <p>
+            <input asp-for="StartDate" />
+        </p>
+        <label asp-for="EndDate">End date:</label>
+        <p>
+            <input asp-for="EndDate" />
+        </p>
+        <input type="submit" class="btn btn-primary" value="Filter" />
+    </form>
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Number</th>
+            <th>Date</th>
+            <th>Provider</th>
+        </tr>
+        @foreach (var order in Model.Orders)
+        {
+            <tr>
+                <td><a asp-action="Details" asp-route-id="@order.Id">@order.Number</a></td>
+                <td>@order.Date</td>
+                <td>@order.ProviderName</td>
+            </tr>
+        }
+    </table>
+</p>

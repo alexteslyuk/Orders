@@ -1,0 +1,43 @@
+﻿@model DetailsViewModel
+
+<p class="text-center">
+    <h1 class="display-4">Details</h1>
+    <a asp-action="Edit" class="btn btn-primary" asp-route-id="@Model.Order.Id">Edit</a>
+    <a asp-action="Delete" class="btn btn-primary" asp-route-id="@Model.Order.Id">Delete</a>
+    <a asp-action="Index" class="btn btn-primary">Back</a>
+    <p>
+        <label>Number:</label> @Model.Order.Number
+    </p>
+    <p>
+        <label>Date:</label> @Model.Order.Date
+    </p>
+    <p>
+        <label>Provider:</label> @Model.Order.ProviderName
+    </p>
+    <form asp-action="Details">
+        <label asp-for="Names">Names:</label>
+        <p>
+            @Html.ListBoxFor(m => m.SelectedNames, new MultiSelectList(Model.Names, Model.SelectedNames))
+        </p>
+        <label asp-for="Units">Units:</label>
+        <p>
+            @Html.ListBoxFor(m => m.SelectedUnits, new MultiSelectList(Model.Units, Model.SelectedUnits))
+        </p>
+    <input type="submit" value="Filter" class="btn btn-primary" />
+    </form>
+    <table class="table table-bordered table-responsive table-hover">
+        <tr>
+            <th>Name</th>
+            <th>Quantity</th>
+            <th>Unit</th>
+        </tr>
+        @foreach (var item in Model.Order.Items)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Quantity</td>
+                <td>@item.Unit</td>
+            </tr>
+        }
+    </table>
+</p>
